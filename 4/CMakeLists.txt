@@ -9,5 +9,5 @@ include_directories(${GTEST_INCLUDE_DIRS})
 file(GLOB SRC_FILES src/*.cpp)
 include_directories(src/)
 
-add_executable(test-4 test/4.1-test.cpp ${SRC_FILES})
+add_executable(test-4 test/test-4.cpp ${SRC_FILES})
 target_link_libraries(test-4 ${GTEST_LIBRARIES} pthread)
