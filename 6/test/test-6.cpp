@@ -9,34 +9,10 @@
 #include "6.2-2-boggle.h"
 
 
-static bool check_output(std::string, std::string);
-
-
 int main(int argc, char *argv[])
 {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
-}
-
-
-static bool check_output(std::string expected, std::string output)
-{
-    std::istringstream expected_stream(expected);
-    std::istringstream output_stream(output);
-
-    std::string expected_line, output_line;
-
-    while (std::getline(expected_stream, expected_line)) {
-        if (!std::getline(output_stream, output_line)) {
-            return false;
-        }
-
-        if (! ((expected_line == output_line) || (expected_line + " " == output_line)) ) {
-            return false;
-        }
-    }
-
-    return true;
 }
 
 
