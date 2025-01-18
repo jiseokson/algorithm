@@ -80,7 +80,7 @@ TEST(BoggleTest, Ex1) {
     std::ostringstream output;
     std::cout.rdbuf(output.rdbuf());
 
-    boggle::solve(); // exercise namespce
+    BOGGLE::solve(); // exercise namespce
 
     std::cin.rdbuf(origin_cin_buf);
     std::cout.rdbuf(origin_cout_buf);
@@ -96,8 +96,41 @@ TEST(BoggleTest, Ex1) {
 
         EXPECT_TRUE(expected_line == output_line || expected_line + " " == output_line)
             << "  Actual:\n"
-            << output_stream.str() + "\n"
+            << output_line + "\n"
             << "Expected:\n"
-            << BOGGLE_EX1_OUTPUT; // exercise output
+            << expected_line;
+    }
+}
+
+
+TEST(BoggleTest, Ex2) {
+    std::streambuf* origin_cin_buf = std::cin.rdbuf();
+    std::streambuf* origin_cout_buf = std::cout.rdbuf();
+
+    std::istringstream input(BOGGLE_EX2_INPUT); // exercise input
+    std::cin.rdbuf(input.rdbuf());
+
+    std::ostringstream output;
+    std::cout.rdbuf(output.rdbuf());
+
+    BOGGLE::solve(); // exercise namespce
+
+    std::cin.rdbuf(origin_cin_buf);
+    std::cout.rdbuf(origin_cout_buf);
+
+    std::istringstream expected_stream(BOGGLE_EX2_OUTPUT); // exercise output
+    std::istringstream output_stream(output.str());
+
+    std::string expected_line;
+    while (std::getline(expected_stream, expected_line)) {
+        std::string output_line;
+        EXPECT_TRUE(std::getline(output_stream, output_line))
+            << "no output";
+
+        EXPECT_TRUE(expected_line == output_line || expected_line + " " == output_line)
+            << "  Actual:\n"
+            << output_line + "\n"
+            << "Expected:\n"
+            << expected_line;
     }
 }
