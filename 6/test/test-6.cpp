@@ -1,6 +1,7 @@
-#include <vector>
 #include <iostream>
+#include <string>
 #include <sstream>
+#include <vector>
 
 #include <gtest/gtest.h>
 
@@ -8,10 +9,34 @@
 #include "6.2-2-boggle.h"
 
 
+static bool check_output(std::string, std::string);
+
+
 int main(int argc, char *argv[])
 {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
+}
+
+
+static bool check_output(std::string expected, std::string output)
+{
+    std::istringstream expected_stream(expected);
+    std::istringstream output_stream(output);
+
+    std::string expected_line, output_line;
+
+    while (std::getline(expected_stream, expected_line)) {
+        if (!std::getline(output_stream, output_line)) {
+            return false;
+        }
+
+        if (! ((expected_line == output_line) || (expected_line + " " == output_line)) ) {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 
@@ -45,15 +70,34 @@ TEST(PickTest, NormalCase) {
 }
 
 
-TEST(BoggleTest, MainTest) {
+TEST(BoggleTest, Ex1) {
+    std::streambuf* origin_cin_buf = std::cin.rdbuf();
     std::streambuf* origin_cout_buf = std::cout.rdbuf();
+
+    std::istringstream input(BOGGLE_EX1_INPUT); // exercise input
+    std::cin.rdbuf(input.rdbuf());
 
     std::ostringstream output;
     std::cout.rdbuf(output.rdbuf());
 
-    boggle::solve();
+    boggle::solve(); // exercise namespce
 
-    std::ostringstream expected;
+    std::cin.rdbuf(origin_cin_buf);
+    std::cout.rdbuf(origin_cout_buf);
 
-    EXPECT_EQ(expected.str(), output.str());
+    std::istringstream expected_stream(BOGGLE_EX1_OUTPUT); // exercise output
+    std::istringstream output_stream(output.str());
+
+    std::string expected_line;
+    while (std::getline(expected_stream, expected_line)) {
+        std::string output_line;
+        EXPECT_TRUE(std::getline(output_stream, output_line))
+            << "no output";
+
+        EXPECT_TRUE(expected_line == output_line || expected_line + " " == output_line)
+            << "  Actual:\n"
+            << output_stream.str() + "\n"
+            << "Expected:\n"
+            << BOGGLE_EX1_OUTPUT; // exercise output
+    }
 }

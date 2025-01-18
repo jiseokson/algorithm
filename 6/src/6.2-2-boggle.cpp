@@ -3,9 +3,6 @@
 #include <vector>
 
 
-namespace boggle {
-
-
 using namespace std;
 
 using vi = vector<int>;
@@ -19,6 +16,7 @@ vvi board = vvi(5);
 #ifdef MAIN
 int main()
 #else
+namespace boggle {
 void solve()
 #endif
 {
@@ -33,5 +31,6 @@ void solve()
     }
 }
 
-
+#ifndef MAIN
 } // namespace boggle
+#endif
