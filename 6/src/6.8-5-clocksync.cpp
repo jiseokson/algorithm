@@ -4,6 +4,8 @@
 using namespace std;
 using vi = vector<int>;
 
+static constexpr auto MAX = 4 * 16;
+
 static int c;
 static vi clocks;
 static vector<vi> buttons = {
@@ -42,20 +44,26 @@ static bool isdone()
     return true;
 }
 
-static int count(int button)
+static int count(int button, int acc)
 {
     if (button == 10) {
-        return int(isdone());
+        if (isdone())
+            return acc;
+        return -1;
     }
 
-    int ret = 0;
+    int ret = MAX;
 
     for (int i = 0; i < 4; ++i) {
-        ret += count(button + 1);
+        int temp = count(button + 1, acc);
+        if (temp != -1) {
+            ret = min(ret, temp);
+        }
         push(button);
+        ++acc;
     }
 
-    return ret;
+    return ret == MAX ? -1 : ret;
 }
 
 #ifdef TEST_TARGET
@@ -75,10 +83,42 @@ int main()
             clocks.push_back(time / 3 - 1);
         }
 
-        cout << count(0) << endl;
+        cout << count(0, 0) << endl;
     }
 }
 
 #ifdef TEST_TARGET
 }
 #endif
+
+// 오답 원인: 문제를 제대로 읽지 않음. *버튼을 누르는 전체 횟수*를 구해야 하지만, *정답이 가능한 경우의 수*를 세는 코드를 먼저 작성함.
+
+// 오답 원인: 정답이 존재하지 않는 경우 최소화되지 않은 ret의 값인 MAX를 그대로 반환함.
+
+//     int ret = MAX;
+
+//     for (int i = 0; i < 4; ++i) {
+//         int temp = count(button + 1, acc);
+//         if (temp != -1) {
+//             ret = min(ret, temp);
+//         }
+//         push(button);
+//         ++acc;
+//     }
+
+//     return ret; ***
+
+// 개선: 최소화가 발생했는지 확인 후 반환값 결정
+
+//     int ret = MAX;
+
+//     for (int i = 0; i < 4; ++i) {
+//         int temp = count(button + 1, acc);
+//         if (temp != -1) {
+//             ret = min(ret, temp);
+//         }
+//         push(button);
+//         ++acc;
+//     }
+
+//     return ret == MAX ? -1 : ret; ***
