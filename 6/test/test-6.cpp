@@ -7,6 +7,9 @@
 
 #include "6.2-1-pick.h"
 #include "6.2-2-boggle.h"
+#include "6.3-3-picnic.h"
+#include "6.5-4-boardcover.h"
+#include "6.8-5-clocksync.h"
 
 
 int main(int argc, char *argv[])
@@ -67,7 +70,7 @@ TEST(BoggleTest, Ex1) {
     std::string expected_line;
     while (std::getline(expected_stream, expected_line)) {
         std::string output_line;
-        EXPECT_TRUE(std::getline(output_stream, output_line))
+        ASSERT_TRUE(std::getline(output_stream, output_line))
             << "no output";
 
         EXPECT_TRUE(expected_line == output_line || expected_line + " " == output_line)
@@ -100,7 +103,139 @@ TEST(BoggleTest, Ex2) {
     std::string expected_line;
     while (std::getline(expected_stream, expected_line)) {
         std::string output_line;
-        EXPECT_TRUE(std::getline(output_stream, output_line))
+        ASSERT_TRUE(std::getline(output_stream, output_line))
+            << "no output";
+
+        EXPECT_TRUE(expected_line == output_line || expected_line + " " == output_line)
+            << "  Actual:\n"
+            << output_line + "\n"
+            << "Expected:\n"
+            << expected_line;
+    }
+}
+
+
+TEST(PicnicTest, Ex1) {
+    std::streambuf* origin_cin_buf = std::cin.rdbuf();
+    std::streambuf* origin_cout_buf = std::cout.rdbuf();
+
+    std::istringstream input(PICNIC_EX1_INPUT); // exercise input
+    std::cin.rdbuf(input.rdbuf());
+
+    std::ostringstream output;
+    std::cout.rdbuf(output.rdbuf());
+
+    PICNIC::solve(); // exercise namespce
+
+    std::cin.rdbuf(origin_cin_buf);
+    std::cout.rdbuf(origin_cout_buf);
+
+    std::istringstream expected_stream(PICNIC_EX1_OUTPUT); // exercise output
+    std::istringstream output_stream(output.str());
+
+    std::string expected_line;
+    while (std::getline(expected_stream, expected_line)) {
+        std::string output_line;
+        ASSERT_TRUE(std::getline(output_stream, output_line))
+            << "no output";
+
+        EXPECT_TRUE(expected_line == output_line || expected_line + " " == output_line)
+            << "  Actual:\n"
+            << output_line + "\n"
+            << "Expected:\n"
+            << expected_line;
+    }
+}
+
+
+TEST(BoardcoverTest, Ex1) {
+    std::streambuf* origin_cin_buf = std::cin.rdbuf();
+    std::streambuf* origin_cout_buf = std::cout.rdbuf();
+
+    std::istringstream input(BOARDCOVER_EX1_INPUT); // exercise input
+    std::cin.rdbuf(input.rdbuf());
+
+    std::ostringstream output;
+    std::cout.rdbuf(output.rdbuf());
+
+    BOARDCOVER::solve(); // exercise namespce
+
+    std::cin.rdbuf(origin_cin_buf);
+    std::cout.rdbuf(origin_cout_buf);
+
+    std::istringstream expected_stream(BOARDCOVER_EX1_OUTPUT); // exercise output
+    std::istringstream output_stream(output.str());
+
+    std::string expected_line;
+    while (std::getline(expected_stream, expected_line)) {
+        std::string output_line;
+        ASSERT_TRUE(std::getline(output_stream, output_line))
+            << "no output";
+
+        EXPECT_TRUE(expected_line == output_line || expected_line + " " == output_line)
+            << "  Actual:\n"
+            << output_line + "\n"
+            << "Expected:\n"
+            << expected_line;
+    }
+}
+
+
+TEST(BoardcoverTest, Ex2) {
+    std::streambuf* origin_cin_buf = std::cin.rdbuf();
+    std::streambuf* origin_cout_buf = std::cout.rdbuf();
+
+    std::istringstream input(BOARDCOVER_EX2_INPUT); // exercise input
+    std::cin.rdbuf(input.rdbuf());
+
+    std::ostringstream output;
+    std::cout.rdbuf(output.rdbuf());
+
+    BOARDCOVER::solve(); // exercise namespce
+
+    std::cin.rdbuf(origin_cin_buf);
+    std::cout.rdbuf(origin_cout_buf);
+
+    std::istringstream expected_stream(BOARDCOVER_EX2_OUTPUT); // exercise output
+    std::istringstream output_stream(output.str());
+
+    std::string expected_line;
+    while (std::getline(expected_stream, expected_line)) {
+        std::string output_line;
+        ASSERT_TRUE(std::getline(output_stream, output_line))
+            << "no output";
+
+        EXPECT_TRUE(expected_line == output_line || expected_line + " " == output_line)
+            << "  Actual:\n"
+            << output_line + "\n"
+            << "Expected:\n"
+            << expected_line;
+    }
+}
+
+
+TEST(ClocksyncTest, Ex1) {
+    std::streambuf* origin_cin_buf = std::cin.rdbuf();
+    std::streambuf* origin_cout_buf = std::cout.rdbuf();
+
+    std::istringstream input(CLOCKSYNC_EX1_INPUT); // exercise input
+    std::cin.rdbuf(input.rdbuf());
+
+    std::ostringstream output;
+    std::cout.rdbuf(output.rdbuf());
+
+    CLOCKSYNC::solve(); // exercise namespce
+
+    std::cin.rdbuf(origin_cin_buf);
+    std::cout.rdbuf(origin_cout_buf);
+
+    std::istringstream expected_stream(CLOCKSYNC_EX1_OUTPUT); // exercise output
+    std::istringstream output_stream(output.str());
+
+    std::string expected_line;
+    while (std::getline(expected_stream, expected_line)) {
+        std::string output_line;
+        ASSERT_TRUE(std::getline(output_stream, output_line))
             << "no output";
 
         EXPECT_TRUE(expected_line == output_line || expected_line + " " == output_line)
