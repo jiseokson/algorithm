@@ -282,3 +282,111 @@ TEST(FastestMaxsumTest, HandleIncludeNegative) {
 
     EXPECT_EQ(maxsum, expected);
 }
+
+
+TEST(InefficientMaxsumBench, N1000) {
+    vector<int> input = random_vector<int>(1000, -500, 500);
+    int maxsum = inefficient_maxsum(input);
+}
+
+TEST(InefficientMaxsumBench, N10000) {
+    vector<int> input = random_vector<int>(10000, -5000, 5000);
+    int maxsum = inefficient_maxsum(input);
+}
+
+
+TEST(BetterMaxsumBench, N1000) {
+    vector<int> input = random_vector<int>(1000, -500, 500);
+    int maxsum = better_maxsum(input);
+}
+
+TEST(BetterMaxsumBench, N10000) {
+    vector<int> input = random_vector<int>(10000, -5000, 5000);
+    int maxsum = better_maxsum(input);
+}
+
+TEST(BetterMaxsumBench, N100000) {
+    vector<int> input = random_vector<int>(100000, -50000, 50000);
+    int maxsum = better_maxsum(input);
+}
+
+
+TEST(FastMaxsumBench, N1000) {
+    vector<int> input = random_vector<int>(1000, -500, 500);
+    int maxsum = fast_maxsum(input);
+}
+
+TEST(FastMaxsumBench, N10000) {
+    vector<int> input = random_vector<int>(10000, -5000, 5000);
+    int maxsum = fast_maxsum(input);
+}
+
+TEST(FastMaxsumBench, N100000) {
+    vector<int> input = random_vector<int>(100000, -50000, 50000);
+    int maxsum = fast_maxsum(input);
+}
+
+TEST(FastMaxsumBench, N1000000) {
+    vector<int> input = random_vector<int>(1000000, -500000, 500000);
+    int maxsum = fast_maxsum(input);
+}
+
+
+TEST(FastestMaxsumBench, N1000) {
+    vector<int> input = random_vector<int>(1000, -500, 500);
+    int maxsum = fastest_maxsum(input);
+}
+
+TEST(FastestMaxsumBench, N10000) {
+    vector<int> input = random_vector<int>(10000, -5000, 5000);
+    int maxsum = fastest_maxsum(input);
+}
+
+TEST(FastestMaxsumBench, N100000) {
+    vector<int> input = random_vector<int>(100000, -50000, 50000);
+    int maxsum = fastest_maxsum(input);
+}
+
+TEST(FastestMaxsumBench, N1000000) {
+    vector<int> input = random_vector<int>(1000000, -500000, 500000);
+    int maxsum = fastest_maxsum(input);
+}
+
+
+// [----------] 2 tests from InefficientMaxsumBench
+// [ RUN      ] InefficientMaxsumBench.N1000
+// [       OK ] InefficientMaxsumBench.N1000 (234 ms)
+// [ RUN      ] InefficientMaxsumBench.N10000
+// [       OK ] InefficientMaxsumBench.N10000 (224246 ms)
+// [----------] 2 tests from InefficientMaxsumBench (224481 ms total)
+
+// [----------] 3 tests from BetterMaxsumBench
+// [ RUN      ] BetterMaxsumBench.N1000
+// [       OK ] BetterMaxsumBench.N1000 (2 ms)
+// [ RUN      ] BetterMaxsumBench.N10000
+// [       OK ] BetterMaxsumBench.N10000 (203 ms)
+// [ RUN      ] BetterMaxsumBench.N100000
+// [       OK ] BetterMaxsumBench.N100000 (19953 ms)
+// [----------] 3 tests from BetterMaxsumBench (20159 ms total)
+
+// [----------] 4 tests from FastMaxsumBench
+// [ RUN      ] FastMaxsumBench.N1000
+// [       OK ] FastMaxsumBench.N1000 (0 ms)
+// [ RUN      ] FastMaxsumBench.N10000
+// [       OK ] FastMaxsumBench.N10000 (1 ms)
+// [ RUN      ] FastMaxsumBench.N100000
+// [       OK ] FastMaxsumBench.N100000 (18 ms)
+// [ RUN      ] FastMaxsumBench.N1000000
+// [       OK ] FastMaxsumBench.N1000000 (176 ms)
+// [----------] 4 tests from FastMaxsumBench (197 ms total)
+
+// [----------] 4 tests from FastestMaxsumBench
+// [ RUN      ] FastestMaxsumBench.N1000
+// [       OK ] FastestMaxsumBench.N1000 (0 ms)
+// [ RUN      ] FastestMaxsumBench.N10000
+// [       OK ] FastestMaxsumBench.N10000 (0 ms)
+// [ RUN      ] FastestMaxsumBench.N100000
+// [       OK ] FastestMaxsumBench.N100000 (8 ms)
+// [ RUN      ] FastestMaxsumBench.N1000000
+// [       OK ] FastestMaxsumBench.N1000000 (70 ms)
+// [----------] 4 tests from FastestMaxsumBench (79 ms total)
