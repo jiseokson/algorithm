@@ -48,12 +48,11 @@ bool boggle(const string& word)
     return false;
 }
 
-// #define MAIN
-#ifdef MAIN
-int main()
-#else
+#ifdef TEST_TARGET
 namespace BOGGLE {
 void solve()
+#else
+int main()
 #endif
 {
     cin >> c;
@@ -76,7 +75,7 @@ void solve()
     }
 }
 
-#ifndef MAIN
+#ifdef TEST_TARGET
 } // namespace BOGGLE
 #endif
 
