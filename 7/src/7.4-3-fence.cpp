@@ -12,32 +12,29 @@ static vi fences;
 
 static int maxarea(int lo, int hi)
 {
-    if (lo > hi)
-        return -1;
-
     if (lo == hi)
         return fences[lo];
 
     if (lo + 1 == hi)
-        return std::max(
-            2 * std::min(fences[lo], fences[hi]),
-            std::max(fences[lo], fences[hi]));
+        return max(
+            2 * min(fences[lo], fences[hi]),
+            max(fences[lo], fences[hi]));
 
     int mid = (lo + hi) / 2;
 
     int res1 = maxarea(lo, mid - 1);
     int res2 = maxarea(mid, hi);
-    int max_area = std::max(res1, res2);
+    int max_area = max(res1, res2);
 
     int l = mid - 1;
     int r = mid;
 
-    int cur_height = std::min(fences[l], fences[r]);
-    max_area = std::max(max_area, 2 * cur_height);
+    int cur_height = min(fences[l], fences[r]);
+    max_area = max(max_area, 2 * cur_height);
 
     while (lo < l && r < hi) {
-        int l_height = std::min(cur_height, fences[l - 1]);
-        int r_height = std::min(cur_height, fences[r + 1]);
+        int l_height = min(cur_height, fences[l - 1]);
+        int r_height = min(cur_height, fences[r + 1]);
 
         int l_area = l_height * (r - l + 2);
         int r_area = r_height * (r - l + 2);
@@ -45,22 +42,22 @@ static int maxarea(int lo, int hi)
         if (l_area > r_area) {
             --l;
             cur_height = l_height;
-            max_area = std::max(max_area, l_area);
+            max_area = max(max_area, l_area);
         } else {
             ++r;
             cur_height = r_height;
-            max_area = std::max(max_area, r_area);
+            max_area = max(max_area, r_area);
         }
     }
 
     for (; lo < l; --l) {
-        cur_height = std::min(cur_height, fences[l - 1]);
-        max_area = std::max(max_area, cur_height * (r - l + 2));
+        cur_height = min(cur_height, fences[l - 1]);
+        max_area = max(max_area, cur_height * (r - l + 2));
     }
 
     for (; r < hi; ++r) {
-        cur_height = std::min(cur_height, fences[r + 1]);
-        max_area = std::max(max_area, cur_height * (r - l + 2));
+        cur_height = min(cur_height, fences[r + 1]);
+        max_area = max(max_area, cur_height * (r - l + 2));
     }
 
     return max_area;
@@ -107,13 +104,13 @@ int main()
 //     }
 
 //     for (; lo < l; --l) {
-//         int cur_height = std::min(cur_height, fences[l]);
-//         max_area = std::max(max_area, cur_height * (r - l + 1));
+//         int cur_height = min(cur_height, fences[l]);
+//         max_area = max(max_area, cur_height * (r - l + 1));
 //     }
 
 //     for (; r < hi; ++r) {
-//         int cur_height = std::min(cur_height, fences[r]);
-//         max_area = std::max(max_area, cur_height * (r - l + 1));
+//         int cur_height = min(cur_height, fences[r]);
+//         max_area = max(max_area, cur_height * (r - l + 1));
 //     }
 
 // 개선:
@@ -122,19 +119,19 @@ int main()
 //     }
 
 //     for (; lo < l; --l) {
-//         int cur_height = std::min(cur_height, fences[l - 1]);
-//         max_area = std::max(max_area, cur_height * (r - l + 2));
+//         int cur_height = min(cur_height, fences[l - 1]);
+//         max_area = max(max_area, cur_height * (r - l + 2));
 //     }
 
 //     for (; r < hi; ++r) {
-//         int cur_height = std::min(cur_height, fences[r + 1]);
-//         max_area = std::max(max_area, cur_height * (r - l + 2));
+//         int cur_height = min(cur_height, fences[r + 1]);
+//         max_area = max(max_area, cur_height * (r - l + 2));
 //     }
 
 
 // 오답 원인:
 // 같은 이름으로 cur_height 다시 정의, 최소화되지 않은 문제
 //     for (; r < hi; ++r) {
-//         **int** cur_height = std::min(cur_height, fences[r + 1]);
-//         max_area = std::max(max_area, cur_height * (r - l + 2));
+//         **int** cur_height = min(cur_height, fences[r + 1]);
+//         max_area = max(max_area, cur_height * (r - l + 2));
 //     }
