@@ -29,11 +29,11 @@ static int maxarea(int lo, int hi)
     int res2 = maxarea(mid, hi);
     int max_area = std::max(res1, res2);
 
-    int cur_height = std::min(fences[mid - 1], fences[mid]);
-    max_area = std::max(max_area, 2 * cur_height);
-
     int l = mid - 1;
     int r = mid;
+
+    int cur_height = std::min(fences[l], fences[r]);
+    max_area = std::max(max_area, 2 * cur_height);
 
     while (lo < l && r < hi) {
         int l_height = std::min(cur_height, fences[l - 1]);
